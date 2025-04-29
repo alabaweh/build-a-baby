@@ -76,7 +76,7 @@ const EthnicitySelector = ({ updateBabyData }) => {
   // Set initial ethnicity when component mounts
   React.useEffect(() => {
     let initialEthnicity = '';
-    if (value >= 1 && value <= 40) {
+    if (value >= 0 && value <= 40) {
       initialEthnicity = 'White';
     } else if (value >= 41 && value <= 70) {
       initialEthnicity = 'Asian';

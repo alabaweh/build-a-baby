@@ -280,7 +280,7 @@ const BabyPassport = ({ babyData }) => {
         <SectionTitle>Physical Attributes</SectionTitle>
         <Field>
           <Label>Eye Color:</Label>
-          <Value>{babyData.eyeColor || 'Not specified'}</Value>
+          <Value>{babyData.eyeColor ? babyData.eyeColor.charAt(0).toUpperCase() + babyData.eyeColor.slice(1) : 'Not specified'}</Value>
         </Field>
         <Field>
           <Label>Height Projection:</Label>
