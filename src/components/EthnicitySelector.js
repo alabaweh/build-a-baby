@@ -73,6 +73,19 @@ const SliderLabels = styled.div`
 const EthnicitySelector = ({ updateBabyData }) => {
   const [value, setValue] = useState(50);
   
+  // Set initial ethnicity when component mounts
+  React.useEffect(() => {
+    let initialEthnicity = '';
+    if (value >= 1 && value <= 40) {
+      initialEthnicity = 'White';
+    } else if (value >= 41 && value <= 70) {
+      initialEthnicity = 'Asian';
+    } else {
+      initialEthnicity = 'Mexican';
+    }
+    updateBabyData({ ethnicity: initialEthnicity });
+  }, []); // Empty dependency array means this runs once on mount
+  
   const handleChange = (e) => {
     const newValue = parseInt(e.target.value);
     setValue(newValue);

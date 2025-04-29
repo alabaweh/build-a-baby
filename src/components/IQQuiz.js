@@ -108,20 +108,18 @@ const IQQuiz = ({ updateBabyData }) => {
       [questionId]: value
     }));
     
-    // Calculate total IQ score if all questions are answered
+    // Calculate total IQ score with current answers
     const newAnswers = { ...answers, [questionId]: value };
     const answeredQuestions = Object.values(newAnswers).filter(answer => answer !== null);
+    const sum = answeredQuestions.reduce((acc, curr) => acc + curr, 0);
+    const iqLabel = getIQLabel(sum);
+    const satScore = getSATScore(sum);
     
-    if (answeredQuestions.length === questions.length) {
-      const sum = answeredQuestions.reduce((acc, curr) => acc + curr, 0);
-      const iqLabel = getIQLabel(sum);
-      const satScore = getSATScore(sum);
-      updateBabyData({ 
-        iqIndex: sum,
-        iqLabel: iqLabel,
-        satScore: satScore
-      });
-    }
+    updateBabyData({ 
+      iqIndex: sum,
+      iqLabel: iqLabel,
+      satScore: satScore
+    });
   };
   
   const calculateTotal = () => {
@@ -132,11 +130,11 @@ const IQQuiz = ({ updateBabyData }) => {
   };
   
   const getIQLabel = (score) => {
-    if (score >= 0 && score <= 4) return 'Idiot';
-    if (score >= 5 && score <= 7) return 'Imbecile';
-    if (score >= 8 && score <= 10) return 'Moron';
-    if (score >= 11 && score <= 13) return 'Normal';
-    if (score >= 14 && score <= 15) return 'Gifted';
+    if (score >= 0 && score <= 12) return 'Idiot';
+    if (score >= 13 && score <= 21) return 'Imbecile';
+    if (score >= 22 && score <= 30) return 'Moron';
+    if (score >= 31 && score <= 39) return 'Normal';
+    if (score >= 40 && score <= 45) return 'Gifted';
     return 'Undefined';
   };
   
@@ -152,10 +150,11 @@ const IQQuiz = ({ updateBabyData }) => {
   };
   
   const getSATScore = (score) => {
-    if (score >= 0 && score <= 5) return '850 – "Remedial Track"';
-    if (score >= 6 && score <= 10) return '1050 – "Vocational Prep"';
-    if (score >= 11 && score <= 13) return '1250 – "College Ready"';
-    if (score >= 14 && score <= 15) return '1420 – "Elite Academic Track"';
+    if (score >= 0 && score <= 12) return '850 – "Remedial Track"';
+    if (score >= 13 && score <= 21) return '1050 – "Vocational Prep"';
+    if (score >= 22 && score <= 30) return '1250 – "College Ready"';
+    if (score >= 31 && score <= 39) return '1420 – "Elite Academic Track"';
+    if (score >= 40 && score <= 45) return '1600 – "Perfect Score"';
     return '';
   };
   

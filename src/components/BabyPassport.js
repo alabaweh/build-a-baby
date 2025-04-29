@@ -2,12 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PassportContainer = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  padding: 30px;
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+`;
+
+const BabyImage = styled.img`
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 150px;
+  height: 150px;
+  border: 2px solid #1a1a2e;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: white;
+  padding: 5px;
 `;
 
 const Header = styled.div`
@@ -16,41 +32,46 @@ const Header = styled.div`
   border-bottom: 2px solid #1a1a2e;
   padding-bottom: 20px;
   position: relative;
+  margin-left: 80px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
 `;
 
 const MainTitle = styled.h1`
   color: #1a1a2e;
-  margin-bottom: 5px;
-  font-size: 2rem;
+  margin: 0;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 `;
 
 const Subtitle = styled.h2`
   color: #666;
+  margin: 10px 0 0 0;
   font-size: 1.2rem;
   font-style: italic;
 `;
 
 const WarningBanner = styled.div`
-  background-color: #ffeb3b;
-  color: #333;
-  text-align: center;
+  background-color: #ffebee;
+  color: #c62828;
   padding: 10px;
-  margin: 20px 0;
-  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
   border-radius: 4px;
-`;
-
-const SatireDisclaimer = styled.div`
-  background-color: #f5f5f5;
-  border: 1px dashed #999;
-  border-radius: 4px;
-  padding: 15px;
-  margin: 20px 0;
-  font-style: italic;
+  font-size: 14px;
 `;
 
 const Section = styled.div`
-  margin: 25px 0;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
 `;
 
 const SectionTitle = styled.h3`
@@ -133,6 +154,19 @@ const BabyPassport = ({ babyData }) => {
     window.location.reload();
   };
   
+  const getBabyImage = (ethnicity) => {
+    switch(ethnicity) {
+      case 'White':
+        return '/images/white_baby.png';
+      case 'Asian':
+        return '/images/asian_baby.png';
+      case 'Mexican':
+        return '/images/hispanic_baby.png';
+      default:
+        return '/images/white_baby.png';
+    }
+  };
+  
   const getSocialRiskColor = (risk) => {
     switch(risk) {
       case 'High': return '#c62828';
@@ -200,6 +234,10 @@ const BabyPassport = ({ babyData }) => {
   
   return (
     <PassportContainer>
+      <BabyImage 
+        src={getBabyImage(babyData.ethnicity)} 
+        alt={`${babyData.ethnicity || 'Baby'} portrait`} 
+      />
       <Header>
         <MainTitle>BABY PASSPORT</MainTitle>
         <Subtitle>Official Genetic Evaluation Certificate</Subtitle>
@@ -281,14 +319,6 @@ const BabyPassport = ({ babyData }) => {
           </Value>
         </Field>
       </Section>
-      
-      <SatireDisclaimer>
-        <p><strong>Satire Notice:</strong> This "Build-A-Baby" simulation is a critical commentary on eugenic thinking. By using the language and logic of eugenics in an obviously absurd context, it highlights how arbitrary and harmful such categorizations are. The "passport" you've created demonstrates the dangerous pseudoscience behind eugenic ideas that quantify human value based on traits, abilities, and backgrounds.</p>
-      </SatireDisclaimer>
-      
-      <Footer>
-        This document has no actual predictive validity and satirizes historic eugenics programs.
-      </Footer>
       
       <ButtonContainer>
         <Button onClick={refreshPage}>Design Another Baby</Button>
