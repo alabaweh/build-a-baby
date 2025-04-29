@@ -144,7 +144,7 @@ const SocialRiskFactor = styled.div`
     '#2e7d32'};
 `;
 
-const SocialMetrics = ({ updateBabyData }) => {
+const SocialMetrics = ({ updateBabyData, babyData }) => {
   const [partnerEducation, setPartnerEducation] = useState('');
   const [purityScore, setPurityScore] = useState(50);
   const [socialRisk, setSocialRisk] = useState('');
@@ -172,6 +172,22 @@ const SocialMetrics = ({ updateBabyData }) => {
     }
   ];
   
+  const getMaxPurityScore = () => {
+    if (babyData.ethnicity === 'White') {
+      return 100;
+    } else {
+      return 65;
+    }
+  };
+
+  const getMinPurityScore = () => {
+    if (babyData.ethnicity === 'White') {
+      return 66;
+    } else {
+      return 0;
+    }
+  };
+
   const getPurityCategory = (score) => {
     if (score >= 0 && score <= 25) {
       return {
@@ -275,15 +291,15 @@ const SocialMetrics = ({ updateBabyData }) => {
         <SliderContainer>
           <Slider 
             type="range" 
-            min="0" 
-            max="100" 
+            min={getMinPurityScore()}
+            max={getMaxPurityScore()}
             value={purityScore} 
             onChange={handlePurityChange}
           />
           <SliderLabels>
-            <span>0</span>
-            <span>50</span>
-            <span>100</span>
+            <span>{getMinPurityScore()}</span>
+            <span>{Math.floor((getMaxPurityScore() + getMinPurityScore()) / 2)}</span>
+            <span>{getMaxPurityScore()}</span>
           </SliderLabels>
         </SliderContainer>
         

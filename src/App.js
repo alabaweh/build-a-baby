@@ -71,7 +71,7 @@ const App = () => {
     { name: 'Cleanliness Index', component: <CleanlinessQuiz updateBabyData={updateBabyData} /> },
     { name: 'IQ Index', component: <IQQuiz updateBabyData={updateBabyData} /> },
     { name: 'Physical Traits', component: <PhysicalTraits updateBabyData={updateBabyData} /> },
-    { name: 'Social Metrics', component: <SocialMetrics updateBabyData={updateBabyData} /> },
+    { name: 'Social Metrics', component: <SocialMetrics updateBabyData={updateBabyData} babyData={babyData} /> },
   ];
   
   function updateBabyData(newData) {
